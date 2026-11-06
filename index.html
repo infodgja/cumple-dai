@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>¡Feliz Cumple Dai! 💙💛💙</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&family=Playfair+Display:ital,wght@0,700;1,400&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+    <style>
+        :root {
+            --boca-blue: #0038A8;
+            --boca-yellow: #FFD100;
+            --boca-dark-blue: #001F60;
+            --gold: #F7B500;
+            --white: #FFFFFF;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: linear-gradient(135deg, var(--boca-dark-blue) 0%, var(--boca-blue) 100%);
+            color: var(--white);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow-x: hidden;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 500px;
+            width: 100%;
+            background: rgba(0, 31, 96, 0.85);
+            backdrop-filter: blur(10px);
+            border: 3px solid var(--boca-yellow);
+            border-radius: 24px;
+            padding: 30px 20px;
+            text-align: center;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5), 0 0 20px rgba(255, 209, 0, 0.3);
+            position: relative;
+        }
+
+        h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.2rem;
+            color: var(--boca-yellow);
+            margin-bottom: 5px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
+        }
+
+        .subtitle {
+            font-size: 0.95rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: #E0E0E0;
+            margin-bottom: 25px;
+            font-weight: 700;
+        }
+
+        .dance-icons {
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+            letter-spacing: 10px;
+        }
+
+        .horoscope-card {
+            background: linear-gradient(180deg, rgba(255,209,0,0.15) 0%, rgba(0,56,168,0.3) 100%);
+            border: 2px dashed var(--boca-yellow);
+            border-radius: 16px;
+            padding: 25px 20px;
+            margin: 20px 0;
+            min-height: 180px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            transition: all 0.5s ease;
+        }
+
+        .horoscope-title {
+            font-size: 1.1rem;
+            font-weight: 900;
+            color: var(--boca-yellow);
+            text-transform: uppercase;
+            margin-bottom: 12px;
+            letter-spacing: 1px;
+        }
+
+        .horoscope-text {
+            font-size: 1.05rem;
+            line-height: 1.5;
+            color: #FFFFFF;
+            font-style: italic;
+        }
+
+        .btn {
+            background: linear-gradient(45deg, var(--boca-yellow), #FFA500);
+            color: var(--boca-dark-blue);
+            font-weight: 900;
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            padding: 16px 32px;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 6px 20px rgba(255, 209, 0, 0.4);
+            transition: transform 0.2s, box-shadow 0.2s;
+            width: 100%;
+            margin-top: 10px;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(255, 209, 0, 0.6);
+        }
+
+        .btn:active {
+            transform: translateY(1px);
+        }
+
+        .from-friends {
+            margin-top: 25px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 209, 0, 0.3);
+            font-size: 0.9rem;
+            color: #D0D0D0;
+        }
+
+        .friends-names {
+            font-weight: 900;
+            color: var(--boca-yellow);
+            font-size: 1.1rem;
+            margin-top: 5px;
+            letter-spacing: 1px;
+        }
+
+        .stars {
+            color: var(--boca-yellow);
+            font-size: 1.2rem;
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="dance-icons">🩰 ⚽ 🎷 💙💛💙</div>
+        <h1>¡Feliz Cumple Dai!</h1>
+        <div class="subtitle">Horóscopo Xeneize-Dancístico</div>
+
+        <div class="horoscope-card" id="card">
+            <div class="horoscope-title" id="title">✨ Tocá el botón para revelar tu destino ✨</div>
+            <div class="horoscope-text" id="text">Descubrí lo que los astros de La Boca y el escenario tienen preparado para tu nuevo año...</div>
+        </div>
+
+        <button class="btn" onclick="revelarDestino()"> Revelar mi Predicción </button>
+
+        <div class="from-friends">
+            Con todo nuestro amor en tu día:
+            <div class="friends-names">Cande • Jor • Nati • Martina</div>
+        </div>
+    </div>
+
+    <script>
+        const predicciones = [
+            {
+                titulo: "⚽🩰 Pirueta de la Mitad Más Uno",
+                texto: "Este año vas a clavar piruetas perfectas con la precisión de un gol de chilena. Tus saltos en el centro del escenario van a tener la misma energía y vibración que la hinchada en La 12."
+            },
+            {
+                titulo: "🎷💙 Gran Jeté Azul y Oro",
+                texto: "Tus giros de jazz van a ser tan explosivos que hasta en la Bombonera van a pedir la repetición por VAR. ¡Prepárate para brillar y romperla toda en cada escenario!"
+            },
+            {
+                titulo: "🏆🌟 Campeona del Ritmo",
+                texto: "Los astros indican que cada paso en puntas que des este año vendrá acompañado de una racha imparable de alegrías, festejos de gol y momentos inolvidables junto a tus amigas."
+            },
+            {
+                titulo: "💃⚡ Energía de Cancha y Ballet",
+                texto: "Tu elegancia clásica mezclada con tu fuerza de cancha van a encender todas las pistas. Este año no hay lesión ni cansancio que te pare: ¡sos pura garra y arte xeneize!"
+            }
+        ];
+
+        let index = 0;
+
+        function revelarDestino() {
+            const pred = predicciones[index % predicciones.length];
+            index++;
+
+            const titleEl = document.getElementById('title');
+            const textEl = document.getElementById('text');
+
+            titleEl.innerText = pred.titulo;
+            textEl.innerText = pred.texto;
+
+            // Lanzar confeti azul y amarillo
+            confetti({
+                particleCount: 80,
+                spread: 70,
+                origin: { y: 0.6 },
+                colors: ['#0038A8', '#FFD100', '#FFFFFF']
+            });
+        }
+    </script>
+</body>
+</html>
